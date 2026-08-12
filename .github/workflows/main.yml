@@ -36,11 +36,10 @@ jobs:
     needs: 
         - Build
     steps:
-      - name: Download code
-        uses: actions/download-artifact@v4
+      - name: Clone down repository
+        uses: actions/checkout@v4
         with:
-          name: code
-          path: .
+          fetch-depth: 0
       - name: run linting
         uses: super-linter/super-linter/slim@v7 
         env:
