@@ -1,7 +1,7 @@
 name: Main workflow
 on: push
 env: # Set the secret as an input
-  github_username: ${{ github.actor }}
+  github_username: ${{ lower(github.actor) }}
   github_password: ${{ secrets.GITHUB_TOKEN }} # Must be made available to the workflow
   GIT_COMMIT: ${{ github.sha }}
 jobs:
@@ -36,11 +36,10 @@ jobs:
     needs: 
         - Build
     steps:
-      - name: Download code
-        uses: actions/download-artifact@v4
+      - name: Clone down repository
+        uses: actions/checkout@v4
         with:
-          name: code
-          path: .
+          fetch-depth: 0
       - name: run linting
         uses: super-linter/super-linter/slim@v7 
         env:
