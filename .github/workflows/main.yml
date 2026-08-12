@@ -78,7 +78,7 @@ jobs:
         name: code
         path: .
     - name: Execute component test
-      run: bash ci/component-test.sh
+      run: ci/component-test.sh
 	  
   Performance-test:
     runs-on: ubuntu-latest
@@ -90,4 +90,4 @@ jobs:
         name: code
         path: .
     - name: Execute performance test
-      run: bash ci/performance-test.sh
+      run: ci/performance-test.sh
