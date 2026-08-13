@@ -1,7 +1,7 @@
 name: Main workflow
 on: push
 env: # Set the secret as an input
-  github_username: ${{ lower(github.actor) }}
+  github_username: ${{ github.actor }}
   github_password: ${{ secrets.GITHUB_TOKEN }} # Must be made available to the workflow
   GIT_COMMIT: ${{ github.sha }}
 jobs:
@@ -33,8 +33,7 @@ jobs:
           include-hidden-files: true
   Linting:
     runs-on: ubuntu-latest
-    needs: 
-        - Build
+    needs: [Build]
     steps:
       - name: Clone down repository
         uses: actions/checkout@v4
@@ -66,7 +65,7 @@ jobs:
       run: bash ci/push-docker.sh
   Component-test:
     runs-on: ubuntu-latest
-    needs: Docker-image
+    needs: [Docker-image]
     steps:
     - name: Download code
       uses: actions/download-artifact@v4
